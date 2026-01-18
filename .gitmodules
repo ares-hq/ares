@@ -1,0 +1,15 @@
+[submodule "cache"]
+	path = cache
+	url = https://github.com/ares-hq/cache
+[submodule "db"]
+	path = db
+	url = https://github.com/ares-hq/db
+[submodule "bot"]
+	path = bot
+	url = https://github.com/ares-hq/bot
+[submodule "site"]
+	path = site
+	url = https://github.com/ares-hq/site
+[submodule "app"]
+	path = app
+	url = https://github.com/ares-hq/app
