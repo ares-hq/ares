@@ -1,0 +1,12 @@
+{
+  // Submodules are separate workspaces; no root Cargo.toml to auto-discover.
+  "rust-analyzer.linkedProjects": [
+    "bot/Cargo.toml",
+    "db/Cargo.toml",
+    "model/Cargo.toml"
+  ],
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.formatOnSave": true
+  }
+}

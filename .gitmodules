@@ -1,6 +1,6 @@
 [submodule "cache"]
-	path = cache
-	url = https://github.com/ares-hq/cache
+	path = model
+	url = https://github.com/ares-hq/model
 [submodule "db"]
 	path = db
 	url = https://github.com/ares-hq/db
