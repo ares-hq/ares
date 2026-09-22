@@ -1,0 +1,17 @@
+[workspace]
+resolver = "3"
+members = ["bot", "db", "model"]
+
+[patch."https://github.com/ares-hq/model.git"]
+model = { path = "model" }
+
+[profile.release]
+strip = "symbols"
+lto = "fat"
+codegen-units = 1
+
+[profile.dev]
+debug = "line-tables-only"
+
+[profile.dev.package."*"]
+opt-level = 2

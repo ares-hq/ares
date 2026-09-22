@@ -1,4 +1,4 @@
-[submodule "cache"]
+[submodule "model"]
 	path = model
 	url = https://github.com/ares-hq/model
 [submodule "db"]

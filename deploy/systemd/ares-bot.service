@@ -1,0 +1,20 @@
+[Unit]
+Description=ARES Discord bot
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/ares-bot
+EnvironmentFile=/etc/ares/env
+User=ares
+Group=ares
+Restart=always
+RestartSec=10s
+MemoryMax=400M
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

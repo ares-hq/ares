@@ -1,0 +1,17 @@
+[Unit]
+Description=ARES pipeline pass (full season)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flock /var/lib/ares/db.lock /usr/local/bin/ares-db --all-events
+EnvironmentFile=/etc/ares/env
+User=ares
+Group=ares
+StateDirectory=ares
+TimeoutStartSec=60min
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict

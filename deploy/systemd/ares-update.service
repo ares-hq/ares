@@ -1,0 +1,9 @@
+[Unit]
+Description=Install the latest ARES release
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/ares/update.sh
+TimeoutStartSec=10min

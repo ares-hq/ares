@@ -1,0 +1,57 @@
+name: release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: true
+
+env:
+  TARGET: x86_64-unknown-linux-musl
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: git submodule update --init --depth 1 model db bot
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+      - run: cargo test --workspace
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: git submodule update --init --depth 1 model db bot
+      - run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - run: rustup target add $TARGET
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ env.TARGET }}
+      - run: cargo build --release --target $TARGET --bin bot --bin db
+
+      - name: Package
+        run: |
+          mkdir dist
+          install -m 755 target/$TARGET/release/bot dist/ares-bot
+          install -m 755 target/$TARGET/release/db dist/ares-db
+          cd dist
+          sha256sum ares-bot ares-db > SHA256SUMS
+          tar -czf ../ares-x86_64-linux-musl.tar.gz ares-bot ares-db SHA256SUMS
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: build ${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          files: ares-x86_64-linux-musl.tar.gz

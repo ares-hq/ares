@@ -1,0 +1,9 @@
+[Unit]
+Description=Check for a new ARES release hourly
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
