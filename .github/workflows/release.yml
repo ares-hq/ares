@@ -22,7 +22,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: git submodule update --init --depth 1 model db bot
+      - run: git submodule update --init --filter=blob:none model db bot
+      - name: Submodules point at main
+        run: |
+          for s in model db bot; do
+            git -C $s merge-base --is-ancestor HEAD origin/main || { echo "::error::$s is not on main"; exit 1; }
+          done
       - uses: Swatinem/rust-cache@v2
       - run: cargo fmt --all --check
       - run: cargo clippy --workspace --all-targets -- -D warnings
