@@ -1,15 +1,20 @@
 [submodule "model"]
 	path = model
 	url = https://github.com/ares-hq/model
+	branch = main
 [submodule "db"]
 	path = db
 	url = https://github.com/ares-hq/db
+	branch = main
 [submodule "bot"]
 	path = bot
 	url = https://github.com/ares-hq/bot
+	branch = main
 [submodule "site"]
 	path = site
 	url = https://github.com/ares-hq/site
+	branch = main
 [submodule "app"]
 	path = app
 	url = https://github.com/ares-hq/app
+	branch = main
